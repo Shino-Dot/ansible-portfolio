@@ -2,17 +2,8 @@
 - name: Nginx setup
   hosts: nginx
   become: yes
-  tasks:
-    - name: Install Nginx
-      dnf:
-        name: nginx
-        state: present
-
-    - name: Start nginx
-      service:
-        name: nginx
-        state: started
-        enabled: yes
+  roles:
+    - nginx
 
 - name: Apache setup
   hosts: apache
@@ -22,23 +13,22 @@
       dnf:
         name: httpd
         state: present
-
-    - name: Start http
+    - name: Start httpd
       service:
         name: httpd
         state: started
         enabled: yes
+      
 
 - name: MySQL setup
   hosts: mysql           
   become: yes
   tasks: 
-    - name: Install mysql-server
+    - name: Install mariadb-server
       dnf:
         name: mariadb-server
         state: present
-
-    - name: Start mysql
+    - name: Start mariadb
       service:
         name: mariadb
         state: started
