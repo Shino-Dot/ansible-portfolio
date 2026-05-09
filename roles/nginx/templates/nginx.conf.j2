@@ -3,7 +3,7 @@ server {
     server_name localhost;
 
     location / {
-        proxy_pass http://{{ apache_host }};
+        proxy_pass http://{{ apache_host }}:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }

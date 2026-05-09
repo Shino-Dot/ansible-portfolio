@@ -4,7 +4,21 @@
   become: yes
   roles:
     - nginx
+  tasks:
+    - name: Open port 80
+      firewalld:
+        port: 80/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
 
+    - name: Allow nginx proxy
+      seboolean:
+        name: httpd_can_network_connect
+        state: yes
+        persistent: yes
+
+ 
 - name: Apache setup
   hosts: apache
   become: yes
