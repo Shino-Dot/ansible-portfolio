@@ -8,6 +8,8 @@ Nginx (リバースプロキシ) → Apache (アプリサーバー) → MariaDB 
 - Ansible
 - Nginx
 - Apache
+- Gunicorn
+- Django
 - MariaDB
 - CentOS Stream 9
 
@@ -17,3 +19,11 @@ Nginx (リバースプロキシ) → Apache (アプリサーバー) → MariaDB 
 
 ## 使い方
 ansible-playbook -i inventory.ini site.yml
+
+## 使用アプリケーション
+- アプリ名: Albatross
+- 作者: amamiya-works
+- リポジトリ: https://github.com/amamiya-works/albatross-tester
+
+## 構成更新
+Nginx (リバースプロキシ)　→ Gunicorn → Django (Albatross) → MariaDB (DB)
