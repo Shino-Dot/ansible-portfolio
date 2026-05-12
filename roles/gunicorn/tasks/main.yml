@@ -15,11 +15,15 @@
     dest: /home/shino/albatross-tester
     force: yes
 
+- name: Create virtualenv
+  command:
+    cmd: python3 -m venv /home/shino/albatross-tester/venv
+    creates: /home/shino/albatross-tester/venv
+
 - name: Install pip packages in virtualenv
   pip:
     requirements: /home/shino/albatross-tester/requirements.txt
     virtualenv: /home/shino/albatross-tester/venv
-    virtualenv-command: python3 -m venv
 
 - name: Set ALLOWED_HOSTS
   lineinfile:
@@ -27,9 +31,14 @@
     regexp: 'ALLOWED_HOSTS'
     line: 'ALLOWED_HOSTS = ["*"]'
 
+- name: Fix settings.py indentation
+  shell: |
+    sed -i 's/^CSRF_TRUSTED_ORIGINS/    CSRF_TRUSTED_ORIGINS/' /home/shino/albatross-tester/albatross/settings.py
+    sed -i 's/^ALLOWED_HOSTS/    ALLOWED_HOSTS/' /home/shino/albatross-tester/albatross/settings.py
+
 - name: Run migrations
   command:
-    cmd: /home/shino/albatross-tester/venv/bin/python namage.py migrate
+    cmd: /home/shino/albatross-tester/venv/bin/python manage.py migrate
     chdir: /home/shino/albatross-tester
 
 - name: Set SELinux context for venv
