@@ -1,0 +1,27 @@
+- name: cloudflaredをダウンロード
+  get_url:
+    url: https://github.com/cloudflare/cloudflared/releases/download/2024.8.3/cloudflared-linux-amd64
+    dest: /usr/local/bin/cloudflared
+    mode: '0755'
+
+- name: cloudflared設定ディレクトリを作成
+  file:
+    path: /etc/cloudflared
+    state: directory
+    mode: '0755'
+
+- name: config.ymlをコピー
+  copy:
+    src: config.yml
+    dest: /etc/cloudflared/config.yml
+
+- name: cloudflaredをサービスとして登録
+  command: /usr/local/bin/cloudflared service install
+  ignore_errors: yes
+
+- name: cloudflaredを起動・有効化
+  systemd:
+    name: cloudflared
+    state: started
+    enable: yes
+

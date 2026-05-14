@@ -79,3 +79,9 @@
   roles:
     - docker
 
+- name: Cloudflared setup
+  hosts: nginx
+  become: yes
+  roles:
+    - cloudflared
+
