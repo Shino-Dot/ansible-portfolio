@@ -1,5 +1,15 @@
 version: '3'
 services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: mariadb
+    env_file:
+      - .env
   prometheus:
     image: prom/prometheus
     ports:
@@ -8,4 +18,3 @@ services:
     image: grafana/grafana
     ports:
       - "3001:3000"
-

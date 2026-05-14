@@ -21,6 +21,16 @@
     src: docker-compose.yml
     dest: /home/shino/docker-compose.yml
 
+- name: Copy Dockerfile
+  copy:
+    src: Dockerfile
+    dest: /home/shino/Dockerfile
+
+- name: Copy requirements.txt
+  copy:
+    src: requirements.txt
+    dest: /home/shino/requirements.txt
+
 - name: Run docker-compose
   command:
     cmd: /usr/local/bin/docker-compose up -d
