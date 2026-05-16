@@ -1,0 +1,5 @@
+# デフォルト値 (group_vars/all.ymlで上書き可能)
+
+nginx_server_name: localhost
+apache_host: 127.0.0.1
+

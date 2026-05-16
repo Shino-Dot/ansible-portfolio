@@ -11,23 +11,23 @@
 
 - name: Clone Django app
   git:
-    repo: https://github.com/amamiya-works/albatross-tester
-    dest: /home/shino/albatross-tester
+    repo: "{{ app_repo }}"
+    dest: "{{ app_path }}"
     force: yes
 
 - name: Create virtualenv
   command:
-    cmd: python3 -m venv /home/shino/albatross-tester/venv
-    creates: /home/shino/albatross-tester/venv
+    cmd: python3 -m venv {{ app_path }}/venv
+    creates: {{ app_path }}/venv
 
 - name: Install pip packages in virtualenv
   pip:
-    requirements: /home/shino/albatross-tester/requirements.txt
-    virtualenv: /home/shino/albatross-tester/venv
+    requirements: {{ app_path }}/requirements.txt
+    virtualenv: {{ app_path }}/venv
 
 - name: Set ALLOWED_HOSTS
   lineinfile:
-    path: /home/shino/albatross-tester/albatross/settings.py
+    path: {{ app_path }}/albatross/settings.py
     regexp: 'ALLOWED_HOSTS'
     line: 'ALLOWED_HOSTS = ["*"]'
 
@@ -38,12 +38,12 @@
 
 - name: Run migrations
   command:
-    cmd: /home/shino/albatross-tester/venv/bin/python manage.py migrate
-    chdir: /home/shino/albatross-tester
+    cmd: {{ app_path }}/venv/bin/python manage.py migrate
+    chdir: {{ app_path }}
 
 - name: Set SELinux context for venv
   command:
-    cmd: chcon -R -t bin_t /home/shino/albatross-tester/venv/
+    cmd: chcon -R -t bin_t {{ app_path }}/venv/
 
 - name: Copy gunicorn service file
   copy:
@@ -59,4 +59,4 @@
     enabled: yes
     state: started
     daemon_reload: yes
-    
+

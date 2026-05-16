@@ -1,0 +1,19 @@
+# プロジェクトごとに変わる内容
+
+nginx_server_name: localhost
+apache_host: 192.168.56.102
+prometheus_version: "2.45.0"
+grafana_port: 3000
+cloudflared_version: "2024.8.3"
+
+# Docker
+docker_compose_version: "2.24.0"
+app_user_home: "/home/shino"
+
+# Gunicorn
+app_repo: "https://github.com/amamiya-works/albatross-tester"
+app_name: "albatross-tester"
+app_path: "/home/shino/albatross-tester"
+
+# Node Exporter
+node_exporter_version: "1.7.0"

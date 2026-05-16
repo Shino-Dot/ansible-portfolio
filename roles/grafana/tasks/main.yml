@@ -22,7 +22,7 @@
 
 - name: Open Grafana port
   firewalld:
-    port: 3000/tcp
+    port: "{{ grafana_port }}/tcp"
     permanent: yes
     state: enabled
     immediate: yes

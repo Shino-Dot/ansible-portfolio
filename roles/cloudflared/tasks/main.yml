@@ -1,6 +1,6 @@
 - name: cloudflaredをダウンロード
   get_url:
-    url: https://github.com/cloudflare/cloudflared/releases/download/2024.8.3/cloudflared-linux-amd64
+    url: https://github.com/cloudflare/cloudflared/releases/download/{{ cloudflared_version }}/cloudflared-linux-amd64
     dest: /usr/local/bin/cloudflared
     mode: '0755'
 

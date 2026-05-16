@@ -6,7 +6,7 @@
 
 - name: Install docker-compose
   get_url:
-    url: https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64
+    url: https://github.com/docker/compose/releases/download/v{{ docker_compose_version }}/docker-compose-linux-x86_64
     dest: /usr/local/bin/docker-compose
     mode: '0755'
 
@@ -19,20 +19,20 @@
 - name: Copy docker-compose file
   copy:
     src: docker-compose.yml
-    dest: /home/shino/docker-compose.yml
+    dest: {{ app_user_home }}/docker-compose.yml
 
 - name: Copy Dockerfile
   copy:
     src: Dockerfile
-    dest: /home/shino/Dockerfile
+    dest: {{ app_user_home }}/Dockerfile
 
 - name: Copy requirements.txt
   copy:
     src: requirements.txt
-    dest: /home/shino/requirements.txt
+    dest: {{ app_user_home }}/requirements.txt
 
 - name: Run docker-compose
   command:
     cmd: /usr/local/bin/docker-compose up -d
-    chdir: /home/shino
+    chdir: {{ app_user_home }}
 
