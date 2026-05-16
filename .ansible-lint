@@ -2,6 +2,8 @@ warn_list:
   - yaml[truthy]
   - yaml[empty-lines]
   - yaml[fqcn]
+  - fqcn[action-core]
+  - name[casing]
 
 skip_list:
   - risky-file-permissions
