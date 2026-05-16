@@ -1,0 +1,9 @@
+warn_list:
+  - yaml[truthy]
+  - yaml[empty-lines]
+  - yaml[fqcn]
+
+skip_list:
+  - risky-file-permissions
+  - no-changefd-when
+  - ignore-errors
