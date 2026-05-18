@@ -12,3 +12,7 @@ skip_list:
   - var-naming[no-role-prefix]
   - no-changed-when
   - command-instead-of-module
+  - package-latest
+
+exclude_paths:
+  - .github/
