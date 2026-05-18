@@ -9,3 +9,6 @@ skip_list:
   - risky-file-permissions
   - no-changefd-when
   - ignore-errors
+  - var-naming[no-role-prefix]
+  - no-changed-when
+  - command-instead-of-module

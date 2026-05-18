@@ -21,7 +21,7 @@
     daemon_reload: yes
 
 - name: Open Grafana port
-  firewalld:
+  ansible.posix.firewalld:
     port: "{{ grafana_port }}/tcp"
     permanent: yes
     state: enabled

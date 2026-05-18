@@ -6,14 +6,14 @@
     - nginx
   tasks:
     - name: Open port 80
-      firewalld:
+      ansible.posix.firewalld:
         port: 80/tcp
         permanent: yes
         state: enabled
         immediate: yes
 
     - name: Allow nginx proxy
-      seboolean:
+      ansible.posix.seboolean:
         name: httpd_can_network_connect
         state: yes
         persistent: yes

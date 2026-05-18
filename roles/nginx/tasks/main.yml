@@ -1,6 +1,6 @@
 ---
 - name: Install nginx
-  dnf: 
+  dnf:
     name: nginx
     state: present
 
@@ -15,4 +15,3 @@
     name: nginx
     state: started
     enabled: yes
-    

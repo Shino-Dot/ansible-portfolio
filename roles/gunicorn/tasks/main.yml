@@ -13,21 +13,22 @@
   git:
     repo: "{{ app_repo }}"
     dest: "{{ app_path }}"
+    version: main
     force: yes
 
 - name: Create virtualenv
   command:
-    cmd: python3 -m venv {{ app_path }}/venv
-    creates: {{ app_path }}/venv
+    cmd: python3 -m venv "{{ app_path }}/venv"
+    creates: "{{ app_path }}/venv"
 
 - name: Install pip packages in virtualenv
   pip:
-    requirements: {{ app_path }}/requirements.txt
-    virtualenv: {{ app_path }}/venv
+    requirements: "{{ app_path }}/requirements.txt"
+    virtualenv: "{{ app_path }}/venv"
 
 - name: Set ALLOWED_HOSTS
   lineinfile:
-    path: {{ app_path }}/albatross/settings.py
+    path: "{{ app_path }}/albatross/settings.py"
     regexp: 'ALLOWED_HOSTS'
     line: 'ALLOWED_HOSTS = ["*"]'
 
@@ -38,12 +39,12 @@
 
 - name: Run migrations
   command:
-    cmd: {{ app_path }}/venv/bin/python manage.py migrate
-    chdir: {{ app_path }}
+    cmd: "{{ app_path }}/venv/bin/python manage.py migrate"
+    chdir: "{{ app_path }}"
 
 - name: Set SELinux context for venv
   command:
-    cmd: chcon -R -t bin_t {{ app_path }}/venv/
+    cmd: chcon -R -t bin_t "{{ app_path }}/venv/"
 
 - name: Copy gunicorn service file
   copy:

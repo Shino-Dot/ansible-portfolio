@@ -1,2 +1,2 @@
 docker_compose_version: "2.24.0"
-app_user_home: "/home/shino"
+docker_app_user_home: "/home/shino"
