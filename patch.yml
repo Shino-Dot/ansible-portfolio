@@ -1,0 +1,10 @@
+---
+- name: Apply security patches
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update all packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        security: yes
