@@ -60,6 +60,16 @@
   become: yes
   roles:
     - prometheus
+  tags:
+    - prometheus
+
+- name: Alertmanager setup
+  hosts: nginx
+  become: yes
+  roles:
+    - alertmanager
+  tags:
+    - alertmanager
 
 - name: Node Exporter setup
   hosts: all
