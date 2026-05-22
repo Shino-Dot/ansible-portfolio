@@ -1,1 +1,0 @@
-{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"//wsl.localhost/Ubuntu/home/shou/ansible-portfolio","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

@@ -1,2 +1,3 @@
 .env
 roles/cloudflared/files/*.json
+.vagrant/
