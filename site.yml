@@ -34,26 +34,21 @@
         enabled: yes
 
 
-- name: MySQL setup
+- name: PostgreSQL setup
   hosts: mysql
   become: yes
-  tasks:
-    - name: Install mariadb-server
-      dnf:
-        name: mariadb-server
-        state: present
-    - name: Start mariadb
-      service:
-        name: mariadb
-        state: started
-        enabled: yes
+  roles:
+    - postgresql
+  tags:
+    - postgresql
 
 - name: Gunicorn setup
   hosts: apache
   become: yes
   roles:
     - gunicorn
-
+  tags:
+    - gunicorn
 
 - name: Prometheus setup
   hosts: nginx

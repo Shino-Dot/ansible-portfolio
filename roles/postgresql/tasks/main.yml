@@ -1,0 +1,41 @@
+---
+- name: Set tmp dir permissions for postgres
+  file:
+    path: /tmp
+    mode: '1777'
+    state: directory
+
+- name: Install postgressql
+  dnf:
+    name:
+      - postgresql-server
+      - postgresql-contrib
+      - python3-psycopg2
+
+- name: Initialize postgresql database
+  command: postgresql-setup --initdb
+  args:
+    creates: /var/lib/pgsql/data/PG_VERSION
+
+- name: Enable and start postgresql
+  systemd:
+    name: postgresql
+    enabled: yes
+    state: started
+    daemon_reload: yes
+
+- name: Create database user
+  community.postgresql.postgresql_user:
+    name: "{{ pg_user }}"
+    password: "{{ pg_password }}"
+    state: present
+  become: yes
+  become_user: postgres
+
+- name: Create database
+  community.postgresql.postgresql_db:
+    name: "{{ pg_db }}"
+    owner: "{{ pg_user }}"
+    state: present
+  become: yes
+  become_user: postgres

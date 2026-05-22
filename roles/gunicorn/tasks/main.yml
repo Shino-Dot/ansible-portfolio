@@ -13,7 +13,7 @@
   git:
     repo: "{{ app_repo }}"
     dest: "{{ app_path }}"
-    version: main
+    version: tester
     force: yes
 
 - name: Create virtualenv
@@ -61,3 +61,9 @@
     state: started
     daemon_reload: yes
 
+- name: Deploy .env file
+  template:
+    src: .env.j2
+    dest: "{{ app_path }}/.env"
+    owner: "{{ ansible_user }}"
+    mode: '0600'
