@@ -26,7 +26,7 @@ jobs:
         run: echo "${{ secrets.VAULT_PASSWORD }}" > ~/.vault_pass
 
       - name: Install Ansible
-        run: pip install ansible
+        run: pip install ansible --break-system-packages
 
       - name: Run Ansible playbook
         run: |

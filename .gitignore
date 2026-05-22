@@ -2,3 +2,4 @@
 roles/cloudflared/files/*.json
 .vagrant/
 action-runner/
+actions-runner/
