@@ -16,7 +16,7 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secret.SSH_PRIVATE_KEY }}" > ~/.ssh/ansible_deploy
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/ansible_deploy
           chmod 600 ~/.ssh/ansible_deploy
           ssh-keyscan 192.168.56.101 >> ~/.ssh/known_hosts
           ssh-keyscan 192.168.56.102 >> ~/.ssh/known_hosts
@@ -32,5 +32,4 @@ jobs:
         run: |
           ansible-playbook -i inventory.ini site.yml \
             --vault-password-file ~/.vault_pass \
-            --privaate-key ~/.ssh/ansible_deploy
-
+            --private-key ~/.ssh/ansible_deploy
