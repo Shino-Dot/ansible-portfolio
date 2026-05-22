@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secret.SSH_PRIVATE_KEY }}" > ~/.ssh/ansible_deploy
+          chmod 600 ~/.ssh/ansible_deploy
+          ssh-keyscan 192.168.56.101 >> ~/.ssh/known_hosts
+          ssh-keyscan 192.168.56.102 >> ~/.ssh/known_hosts
+          ssh-keyscan 192.168.56.103 >> ~/.ssh/known_hosts
+
+      - name: Setup Vault password
+        run: echo "${{ secrets.VAULT_PASSWORD }}" > ~/.vault_pass
+
+      - name: Install Ansible
+        run: pip install ansible
+
+      - name: Run Ansible playbook
+        run: |
+          ansible-playbook -i inventory.ini site.yml \
+            --vault-password-file ~/.vault_pass \
+            --privaate-key ~/.ssh/ansible_deploy
+
