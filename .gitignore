@@ -1,5 +1,10 @@
+*.env
 .env
-roles/cloudflared/files/*.json
+!.env.example
+!*.env.j2
+vault_password.txt
+.vault_pass
+*.retry
+_pycache_/
+*.pyc
 .vagrant/
-action-runner/
-actions-runner/
