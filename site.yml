@@ -77,11 +77,15 @@
   become: yes
   roles:
     - grafana
+  tags:
+    - grafana
 
 - name: Docker setup
   hosts: nginx
   become: yes
   roles:
+    - docker
+  tags:
     - docker
 
 - name: Cloudflared setup
