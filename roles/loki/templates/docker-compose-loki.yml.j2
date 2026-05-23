@@ -1,0 +1,27 @@
+---
+services:
+  loki:
+    image: grafana/loki:{{ loki_version }}
+    container_name: loki
+    ports:
+      - "{{ loki_port }}:{{ loki_port }}"
+    volumes:
+      - "{{ compose_project_dir }}/loki-config.yml:/etc/loki/local-config.yaml:ro"
+      - "{{ loki_data_dir }}:/loki"
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+
+  promtail:
+    image: grafana/promtail:{{ promtail_version }}
+    container_name: promtail
+    volumes:
+      - type: bind
+        source: "{{ compose_project_dir }}/promtail-config.yml"
+        target: /etc/promtail/config.yml
+        read_only: true
+      - /var/log:/var/log:ro
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    depends_on:
+      - loki
+

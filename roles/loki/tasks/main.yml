@@ -1,0 +1,34 @@
+---
+- name: Create Loki data directory
+  ansible.builtin.file:
+    path: "{{ loki_data_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create monitoring directory
+  ansible.builtin.file:
+    path: "{{ compose_project_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Deploy Loki config
+  ansible.builtin.template:
+    src: loki-config.yml.j2
+    dest: "{{ compose_project_dir }}/loki-config.yml"
+    mode: "0644"
+
+- name: Deploy Docker Compose file
+  ansible.builtin.template:
+    src: docker-compose-loki.yml.j2
+    dest: "{{ compose_project_dir }}/docker-compose-loki.yml"
+    mode: "0644"
+
+- name: Start Loki stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ compose_project_dir }}"
+    files:
+      - docker-compose-loki.yml
+    state: present
+

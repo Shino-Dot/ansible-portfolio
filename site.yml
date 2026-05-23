@@ -94,3 +94,10 @@
   roles:
     - cloudflared
 
+- name: Loki setup
+  hosts: nginx
+  become: yes
+  roles:
+    - loki
+  tags:
+    - loki
