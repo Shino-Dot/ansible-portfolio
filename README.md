@@ -25,7 +25,7 @@ ansible-playbook -i inventory.ini site.yml
 
 ## 使用アプリケーション
 - アプリ名: Albatross
-- 作者: amamiya-lads
+- 作者: amamiya-labs
 - リポジトリ: https://github.com/amamiya-labs/albatross
 
 
