@@ -2,10 +2,10 @@ groups:
   - name: infrastructure
     rules:
       - alert: InstanceDown
-        expr: up = 0
+        expr: up == 0
         for: 1m
         labels:
-          serverity: critical
+          severity: critical
         annotations:
           summary: "Instance {{ $labels.instance }} is down"
           description: "{{ $labels.instance }} has been down for more than 1 minute."
