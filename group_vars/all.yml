@@ -7,7 +7,7 @@ grafana_port: 3000
 cloudflared_version: "2024.8.3"
 
 # Docker
-docker_compose_version: "2.27.0"
+docker_compose_version: "2.29.2"
 docker_app_user_home: "/home/shino"
 
 # Gunicorn

@@ -39,7 +39,7 @@
 
 - name: Run migrations
   command:
-    cmd: "{{ app_path }}/venv/bin/python manage.py migrate"
+    cmd: "{{ app_path }}/venv/bin/python manage.py migrate --fake-initial"
     chdir: "{{ app_path }}"
   environment:
     DATABASE_URL: "postgres://{{ pg_user }}:{{ pg_password }}@192.168.56.103:5432/{{ pg_db }}"
