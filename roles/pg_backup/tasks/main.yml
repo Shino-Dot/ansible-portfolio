@@ -1,0 +1,20 @@
+---
+- name: バックアップディレクトリを作成
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: "バックアップスクリプトを配置"
+  template:
+    src: pg_backup.sh.j2
+    dest: "{{ backup_dir }}/pg_backup.sh"
+    mode: '0755'
+
+- name: cronでバックアップを自動実行
+  cron:
+    name: "PostgreSQL backup"
+    minute: "0"
+    hour: "2"
+    job: "{{ backup_dir }}/pg_backup.sh"

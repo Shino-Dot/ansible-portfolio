@@ -1,0 +1,10 @@
+#!/bin/bash
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_FILE="{{ backup_dir }}/{{ pg_db }}_${DATE}.sql"
+
+docker exec shino-db-1 pg_dump \
+  -U {{ pg_user }} \
+  {{ pg_db }} > ${BACKUP_FILE}
+
+# 7日以上古いバックアップを削除
+find {{ backup_dir }} -name "*.sql" -mtime +7 -delete
