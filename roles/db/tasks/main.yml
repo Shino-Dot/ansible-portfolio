@@ -1,0 +1,25 @@
+---
+- name: dbディレクトリを作成
+  file:
+    path: "{{ db_path }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: docker-compose.ymlを配置
+  template:
+    src: docker-compose-db.yml.j2
+    dest: "{{ db_path }}/docker-compose.yml"
+    mode: '0644'
+
+- name: .envファイルを配置
+  template:
+    src: .env.j2
+    dest: "{{ db_path }}/.env"
+    mode: '0640'
+
+- name: dbコンテナを起動
+  community.docker.docker_compose_v2:
+    project_src: "{{ db_path }}"
+    state: present
+

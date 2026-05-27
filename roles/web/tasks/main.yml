@@ -1,0 +1,24 @@
+---
+- name: webアプリディレクトリを作成
+  file:
+    path: "{{ app_path }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: docker-compose.ymlを配置
+  template:
+    src: docker-compose-web.yml.j2
+    dest: "{{ app_path }}/docker-compose.yml"
+    mode: '0644'
+
+- name: .envファイルを配置
+  template:
+    src: .env.j2
+    dest: "{{ app_path }}/.env"
+    mode: '0640'
+
+- name: webコンテナを起動
+  community.docker.docker_compose_v2:
+    project_src: "{{ app_path }}"
+    state: present
